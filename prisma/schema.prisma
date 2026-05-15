@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Contact {
+  id          String   @id @default(cuid())
+  companyName String
+  email       String   @unique
+  sector      String?
+  postalCode  String?
+  note        String?
+  status      String   @default("lead")
+
+  lastSentAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  sends        MailSendLog[]
+  opens        MailOpen[]
+  clicks       MailClick[]
+}
+
+model MailTemplate {
+  id        String   @id @default(cuid())
+  name      String
+  subject   String
+  html      String
+  createdAt DateTime @default(now())
+
+  sends MailSendLog[]
+}
+
+model MailSendLog {
+  id         String   @id @default(cuid())
+  contactId  String
+  templateId String?
+  email      String
+  subject    String
+  trackingId String   @unique
+  sentAt     DateTime @default(now())
+  status     String   @default("sent")
+
+  contact  Contact      @relation(fields: [contactId], references: [id])
+  template MailTemplate? @relation(fields: [templateId], references: [id])
+}
+
+model MailOpen {
+  id         String   @id @default(cuid())
+  contactId  String
+  trackingId String
+  openedAt   DateTime @default(now())
+  ip         String?
+  userAgent  String?
+
+  contact Contact @relation(fields: [contactId], references: [id])
+}
+
+model MailClick {
+  id         String   @id @default(cuid())
+  contactId  String
+  trackingId String
+  url        String
+  clickedAt  DateTime @default(now())
+
+  contact Contact @relation(fields: [contactId], references: [id])
+}
