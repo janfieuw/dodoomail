@@ -14,7 +14,7 @@ export default async function ContactsPage() {
       <aside className="sidebar">
         <div className="logoWrapper">
 <img
-  src="/dodoo-logo.png"
+  src="/mail/dodoo-logo.png"
   alt="DODOO Mail"
   className="logoImage"
 />
