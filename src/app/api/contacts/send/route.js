@@ -40,12 +40,15 @@ const contacts = await prisma.contact.findMany({
   for (const contact of contacts) {
     const trackingId = randomUUID();
 
-    await prisma.mailSendLog.create({
-      data: {
-        contactId: contact.id,
-        trackingId,
-      },
-    });
+   await prisma.mailSendLog.create({
+  data: {
+    contactId: contact.id,
+    email: contact.email,
+    subject: "Eenvoudige tijdsregistratie voor KMO’s",
+    trackingId,
+    status: "sent",
+  },
+});
 
     const trackingPixel = `
       <img 
