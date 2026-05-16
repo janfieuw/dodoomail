@@ -10,7 +10,9 @@ export const runtime = "nodejs";
 export async function POST(request) {
   const formData = await request.formData();
 
-  const contactIds = formData.getAll("contactIds");
+  const contactIds = formData
+  .getAll("contactIds")
+  .map((id) => Number(id));
 
   if (!contactIds.length) {
     redirect("/mail/contacts");
