@@ -16,13 +16,13 @@ export async function POST(request) {
     redirect("/mail/contacts");
   }
 
-  const contacts = await prisma.contact.findMany({
-    where: {
-      id: {
-        in: contactIds.map(Number),
-      },
+const contacts = await prisma.contact.findMany({
+  where: {
+    id: {
+      in: contactIds,
     },
-  });
+  },
+});
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
