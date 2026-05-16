@@ -13,11 +13,11 @@ export default async function ContactsPage() {
     <div className="appShell">
       <aside className="sidebar">
         <div className="logoWrapper">
-  <img
-    src="/dodoo-logo.png"
-    alt="DODOO Mail"
-    className="logoImage"
-  />
+<img
+  src="/dodoo-logo.png"
+  alt="DODOO Mail"
+  className="logoImage"
+/>
 </div>
 
         <nav className="nav">

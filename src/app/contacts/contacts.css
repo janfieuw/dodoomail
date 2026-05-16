@@ -2,15 +2,8 @@
   --background: #ffffff;
   --foreground: #171717;
 
-  --dodoo-blue: #00b7e8;
-  --dodoo-blue-dark: #008fc4;
-
-  --dodoo-yellow: #ffbf00;
-  --dodoo-orange: #ff8800;
-  --dodoo-red: #ff1f2d;
-
-  --dodoo-dark: #07110c;
-  --dodoo-dark-soft: #10231b;
+  --dodoo-primary: #5572AE;
+  --dodoo-primary-hover: #49639a;
 
   --page-bg: #f5f7f8;
   --card-bg: #ffffff;
@@ -40,7 +33,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* APP LAYOUT */
+/* APP */
 
 .appShell {
   display: flex;
@@ -83,8 +76,6 @@ body {
   object-fit: contain;
 }
 
-
-
 .nav {
   display: flex;
   flex-direction: column;
@@ -92,7 +83,7 @@ body {
 }
 
 .navItem {
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.82);
 
   text-decoration: none;
 
@@ -111,16 +102,12 @@ body {
 }
 
 .navItem.active {
-  background: linear-gradient(
-    90deg,
-    var(--dodoo-yellow),
-    var(--dodoo-orange)
-  );
+  background: var(--dodoo-primary);
 
-  color: #111111;
+  color: #ffffff;
 
   box-shadow:
-    0 4px 14px rgba(255,136,0,0.25);
+    0 4px 14px rgba(85,114,174,0.30);
 }
 
 .userBox {
@@ -235,10 +222,10 @@ select:focus,
 textarea:focus {
   outline: none;
 
-  border-color: var(--dodoo-blue);
+  border-color: var(--dodoo-primary);
 
   box-shadow:
-    0 0 0 4px rgba(0,183,232,0.12);
+    0 0 0 4px rgba(85,114,174,0.12);
 }
 
 /* BUTTONS */
@@ -257,28 +244,27 @@ button,
 
   cursor: pointer;
 
-  background: linear-gradient(
-    90deg,
-    var(--dodoo-yellow),
-    var(--dodoo-orange)
-  );
+  background: var(--dodoo-primary);
 
-  color: #111111;
+  color: #ffffff;
 
   box-shadow:
-    0 4px 12px rgba(255,136,0,0.24);
+    0 4px 12px rgba(85,114,174,0.25);
 
   transition:
     transform 0.15s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 button:hover,
 .sendButton:hover {
+  background: var(--dodoo-primary-hover);
+
   transform: translateY(-1px);
 
   box-shadow:
-    0 6px 18px rgba(255,136,0,0.30);
+    0 6px 18px rgba(85,114,174,0.35);
 }
 
 .sendButton {
@@ -325,7 +311,7 @@ button:hover,
 }
 
 .table tbody tr:hover {
-  background: rgba(0,183,232,0.03);
+  background: rgba(85,114,174,0.03);
 }
 
 /* STATUS */
