@@ -1,3 +1,6 @@
+import { prisma } from "@/lib/prisma";
+import "./contacts.css";
+
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
