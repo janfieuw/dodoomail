@@ -1,49 +1,257 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* DODOO kleuren */
+  --dodoo-blue: #00b7e8;
+  --dodoo-blue-dark: #008fc4;
+
+  --dodoo-yellow: #ffbf00;
+  --dodoo-orange: #ff8800;
+  --dodoo-red: #ff1f2d;
+
+  --dodoo-dark: #07110c;
+  --dodoo-dark-soft: #0d1b15;
+
+  --page-bg: #f5f7f8;
+  --card-bg: #ffffff;
+
+  --border: #e5e7eb;
+  --muted: #6b7280;
+
+  --success-bg: #dcfce7;
+  --success-text: #15803d;
+
+  --lead-bg: #dbeafe;
+  --lead-text: #1d4ed8;
+
+  --radius: 18px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html {
-  height: 100%;
-}
-
-html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
+  background: var(--page-bg);
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* SIDEBAR */
+
+.sidebar {
+  background: linear-gradient(
+    180deg,
+    var(--dodoo-dark) 0%,
+    #10231b 100%
+  );
+
+  border-right: 1px solid rgba(255,255,255,0.06);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.sidebar h1 {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.sidebar a {
+  color: rgba(255,255,255,0.82);
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+}
+
+.sidebar a.active {
+  background: linear-gradient(
+    90deg,
+    var(--dodoo-yellow),
+    var(--dodoo-orange)
+  );
+
+  color: #111111;
+  box-shadow: 0 4px 14px rgba(255,136,0,0.25);
+}
+
+/* TOPBAR */
+
+.topbar {
+  background: linear-gradient(
+    90deg,
+    var(--dodoo-blue-dark),
+    var(--dodoo-blue)
+  );
+
+  color: #ffffff;
+  padding: 26px 32px;
+}
+
+.topbar h2 {
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+/* CARDS */
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid rgba(0,0,0,0.06);
+
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.04),
+    0 10px 30px rgba(0,0,0,0.04);
+
+  padding: 28px;
+}
+
+.card h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  background: #ffffff;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+
+  border-color: var(--dodoo-blue);
+
+  box-shadow:
+    0 0 0 4px rgba(0,183,232,0.12);
+}
+
+/* BUTTONS */
+
+button,
+.btn-primary {
+  border: none;
+
+  border-radius: 12px;
+
+  padding: 13px 20px;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  background: linear-gradient(
+    90deg,
+    var(--dodoo-yellow),
+    var(--dodoo-orange)
+  );
+
+  color: #111111;
+
+  box-shadow:
+    0 4px 12px rgba(255,136,0,0.24);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+button:hover,
+.btn-primary:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 18px rgba(255,136,0,0.30);
+}
+
+/* TABLE */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+thead {
+  background: #f8fafc;
+}
+
+th {
+  text-align: left;
+
+  padding: 16px 14px;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  color: #475569;
+}
+
+td {
+  padding: 18px 14px;
+
+  border-top: 1px solid #eef2f7;
+
+  font-size: 14px;
+}
+
+tr:hover {
+  background: rgba(0,183,232,0.03);
+}
+
+/* STATUS */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+
+  border-radius: 999px;
+
+  padding: 6px 12px;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.status-opened {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.status-lead {
+  background: var(--lead-bg);
+  color: var(--lead-text);
+}
+
+/* PAGINA SPACING */
+
+.page-content {
+  padding: 28px;
+}
+
+.section-spacing {
+  margin-top: 28px;
 }
