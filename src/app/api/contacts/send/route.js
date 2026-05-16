@@ -9,20 +9,19 @@ export const runtime = "nodejs";
 
 export async function POST(request) {
   const formData = await request.formData();
-
   const contactIds = formData.getAll("contactIds");
 
   if (!contactIds.length) {
     redirect("/mail/contacts");
   }
 
-const contacts = await prisma.contact.findMany({
-  where: {
-    id: {
-      in: contactIds,
+  const contacts = await prisma.contact.findMany({
+    where: {
+      id: {
+        in: contactIds,
+      },
     },
-  },
-});
+  });
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -35,40 +34,54 @@ const contacts = await prisma.contact.findMany({
   });
 
   const htmlPath = path.join(process.cwd(), "mail-template.html");
-  let html = fs.readFileSync(htmlPath, "utf8");
+  const baseHtml = fs.readFileSync(htmlPath, "utf8");
 
   for (const contact of contacts) {
     const trackingId = randomUUID();
-
-   await prisma.mailSendLog.create({
-  data: {
-    contactId: contact.id,
-    email: contact.email,
-    subject: "Eenvoudige tijdsregistratie voor KMO’s",
-    trackingId,
-    status: "sent",
-  },
-});
+    const subject = "Eenvoudige tijdsregistratie voor KMO’s";
 
     const trackingPixel = `
       <img 
         src="${process.env.APP_URL}/api/track-open?id=${trackingId}" 
         width="1" 
         height="1" 
-        style="display:none;" 
+        alt=""
+        style="width:1px;height:1px;border:0;opacity:0;" 
       />
     `;
+
+    let html = baseHtml.replaceAll(
+      "https://www.axoo.be",
+      `${process.env.APP_URL}/api/track-click?id=${trackingId}&url=${encodeURIComponent(
+        "https://www.axoo.be"
+      )}`
+    );
+
+    html = html + trackingPixel;
+
+    await prisma.mailSendLog.create({
+      data: {
+        contactId: contact.id,
+        email: contact.email,
+        subject,
+        trackingId,
+        status: "sent",
+      },
+    });
 
     await transporter.sendMail({
       from: process.env.SMTP_FROM,
       to: contact.email,
-      subject: "Eenvoudige tijdsregistratie voor KMO’s",
-      html: html + trackingPixel,
+      subject,
+      html,
     });
 
     await prisma.contact.update({
       where: { id: contact.id },
-      data: { status: "verstuurd" },
+      data: {
+        status: "verstuurd",
+        lastSentAt: new Date(),
+      },
     });
   }
 
