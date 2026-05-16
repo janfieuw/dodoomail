@@ -83,12 +83,7 @@ body {
   object-fit: contain;
 }
 
-.logo {
-  font-size: 28px;
-  font-weight: 900;
-  margin-bottom: 42px;
-  letter-spacing: -0.5px;
-}
+
 
 .nav {
   display: flex;
